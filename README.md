@@ -1,4 +1,4 @@
-# Мини-проект по автоматизации тестирования интернет-магазина KazanExpress"
+# Проект по автоматизации тестирования интернет-магазина KazanExpress"
 <p align="center">
 <img title="Allure Test Page" src="images/screenshots/KznExpress.png">
 </p>
