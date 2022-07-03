@@ -1,44 +1,71 @@
-# Project in Allure TestOps with manual & automated tests
-<a target="_blank" href="https://allure.autotests.cloud/project/%s">allure.autotests.cloud/project/%s</a> (ask admin@qa.guru for access)
+# Мини-проект по автоматизации тестирования интернет-магазина KazanExpress"
+<p align="center">
+<img title="Allure Test Page" src="images/screenshots/KznExpress.png">
+</p>
+ <a target="_blank" href="https://kazanexpress.ru/">KazanExpress - интернет-магазин с бесплатной доставкой за 1 день</a>
 
-# Jenkins job
-<a target="_blank" href="https://jenkins.autotests.cloud/job/%s">jenkins.autotests.cloud/job/%s</a>
+## :floppy_disk: Содержание:
+- <a href="#computer-технологии-и-инструменты">Технологии и инструменты</a>
+- <a href="#notebook_with_decorative_cover-реализованные-проверки">Реализованные проверки</a>
+- <a href="#arrow_forward-запуск-из-терминала">Запуск из терминала</a>
+- <a href="#open_book-allure-отчет">Allure отчет</a>
+- <a href="#robot-отчет-в-telegram">Отчет в Telegram</a>
+- <a href="#film_projector-видео-примеры-прохождения-тестов">Видео примеры прохождения тестов</a>
+
+## :computer: Технологии и инструменты
+<p align="center">
+<img width="6%" title="IntelliJ IDEA" src="images/logo/Intelij_IDEA.svg">
+<img width="6%" title="Java" src="images/logo/Java.svg">
+<img width="6%" title="Selenide" src="images/logo/Selenide.svg">
+<img width="6%" title="Selenoid" src="images/logo/Selenoid.svg">
+<img width="6%" title="Allure Report" src="images/logo/Allure_Report.svg">
+<img width="6%" title="Gradle" src="images/logo/Gradle.svg">
+<img width="6%" title="JUnit5" src="images/logo/JUnit5.svg">
+<img width="6%" title="GitHub" src="images/logo/GitHub.svg">
+<img width="6%" title="Jenkins" src="images/logo/Jenkins.svg">
+<img width="6%" title="Telegram" src="images/logo/Telegram.svg">
+<img width="6%" title="Telegram" src="images/logo/Rest-Assured.png">
+</p>
+
+## :notebook_with_decorative_cover: Реализованные проверки
+- UI Tests:
+  - Авторизация зарегестрированного пользователя
+  - Соответствие заголовка страницы с желаемым результатом
+  - В журнале консоли нет ошибок
+  - Все элементы каталога имеют атрибут 'href'
+
+- API Tests:
+  - Проверка на получение токенов при авторизации зарегестрированного пользователя
+  - Зарегистрированный пользователь имеет доступ к своим контактным данным 
 
 
-# USAGE examples
+## :arrow_forward: Запуск из терминала
 
-### For run remote tests need fill remote.properties or to pass value:
-
-* browser (default chrome)
-* browserVersion (default 89.0)
-* browserSize (default 1920x1080)
-* browserMobileView (mobile device name, for example iPhone X)
-* remoteDriverUrl (url address from selenoid or grid)
-* videoStorage (url address where you should get video)
-* threads (number of threads)
-
-
-Run tests with filled remote.properties:
-```bash
+```
 gradle clean test
 ```
 
-Run tests with not filled remote.properties:
-```bash
-gradle clean -DremoteDriverUrl=https://%s:%s@selenoid.autotests.cloud/wd/hub/ -DvideoStorage=https://selenoid.autotests.cloud/video/ -Dthreads=1 test
-```
+## :open_book: Allure отчет
+- ### Главный экран отчета
+<p align="center">
+<img title="Allure Overview Dashboard" src="images/screenshots/total.png">
+</p>
 
-Serve report:
-```bash
-allure serve build/allure-results
-```
+- ### Страница с проведенными тестами, где справа можно увидеть подробно-расписанные шаги, а снизу каждого тест-кейса прикрепляются аттачи
+Отчет Ui-теста:
+<p align="center">
+<img title="Allure Test Page" src="images/screenshots/ui_1.png">
+</p>
+Отчет Api-теста:
+<p align="center">
+<img title="Allure Test Page" src="images/screenshots/api_1.png">
+</p>
+
+## :robot: Отчет в Telegram
+<p align="center">
+<img title="Telegram notification message" src="images/screenshots/photo_2022-07-03_16-40-29.jpg">
+</p>
 
 
-###### For further development there are some example tests in src/test/java/cloud.autotests/tests/demowebshop
-* remove @Disabled("...") annotation to run tests
-```bash
-gradle clean demowebshop
-```
-
-:heart: <a target="_blank" href="https://qa.guru">qa.guru</a><br/>
-:blue_heart: <a target="_blank" href="https://t.me/qa_automation">t.me/qa_automation</a>
+:heart: 
+:blue_heart: 

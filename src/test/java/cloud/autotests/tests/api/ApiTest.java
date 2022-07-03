@@ -41,6 +41,7 @@ public class ApiTest {
         Assertions.assertEquals(resp.getToken_type(), "bearer");
     }
 
+    @DisplayName("Запрос информации о контактных данных")
     @Test
     void contactInfoTest() {
         String accessToken = PreRequestForApiTest.getTokenUser();
