@@ -3,14 +3,9 @@ package cloud.autotests.tests.ui;
 import cloud.autotests.config.TestDataConfig;
 import cloud.autotests.helpers.DriverUtils;
 import cloud.autotests.tests.TestBase;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
