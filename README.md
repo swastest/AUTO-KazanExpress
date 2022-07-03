@@ -51,7 +51,7 @@ gradle clean test
 <img title="Allure Overview Dashboard" src="images/screenshots/total.png">
 </p>
 
-- ### Страница с проведенными тестами, где справа можно увидеть подробно-расписанные шаги, а снизу каждого тест-кейса прикрепляются аттачи
+- ### Страница с проведенными тестами, где справа можно увидеть подробно-расписанные шаги, а внизу каждого тест-кейса прикрепляются аттачи
 Отчет Ui-теста:
 <p align="center">
 <img title="Allure Test Page" src="images/screenshots/ui_1.png">
