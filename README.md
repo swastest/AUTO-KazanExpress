@@ -1,8 +1,8 @@
-# Проект по автоматизации тестирования интернет-магазина KazanExpress"
+# Проект по автоматизации тестирования интернет-магазина "KazanExpress"
 <p align="center">
 <img title="Allure Test Page" src="images/screenshots/KznExpress.png">
 </p>
- <a target="_blank" href="https://kazanexpress.ru/">KazanExpress - интернет-магазин с бесплатной доставкой за 1 день</a>
+ <a target="_blank" href="https://kazanexpress.ru/">KazanExpress - интернет-магазин с бесплатной доставкой за 1 день!</a>
 
 ## :floppy_disk: Содержание:
 - <a href="#computer-технологии-и-инструменты">Технологии и инструменты</a>
