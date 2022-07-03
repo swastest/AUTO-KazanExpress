@@ -4,7 +4,7 @@ import cloud.autotests.config.TestDataConfig;
 import cloud.autotests.helpers.DriverUtils;
 import cloud.autotests.tests.TestBase;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.Selenide;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -45,19 +45,21 @@ public class UiTests extends TestBase {
     }
 
     @Test
-    @DisplayName("Каждый элемент каталога имеет атрибур ссылки 'href'")
-    void hrefLinksTest(){
+    @DisplayName("Отображение количества товара, после добавления 1 позиции")
+    void addCardTest(){
         step("Открыть главную страницу 'https://kazanexpress.ru/'", () ->
                 open(""));
-        step("Получить все ссылки из каталога",()->{
-            ElementsCollection hrefs = $$("div.products a");
-            List<String> links = new ArrayList<>();
-            for(SelenideElement element: hrefs){
-                links.add(element.getAttribute("href"));
-            }
-            step("Проверка, что каждый элемент каталога имеет атрибут ссылки 'href'",()->
-                hrefs.stream().forEach(x->links.add(x.getAttribute("href"))));
+
+        step("Нажать кнопку 'Добавить в корзину'", () ->
+                $("[data-test-id='button__add-to-cart']").click());
+
+        step("Подтвердить добавление в корзину, в поп-ап окне", () ->{
+                $(".characteristic-wrapper").click();
+                $("[data-test-id='button__add-cart']").click();
         });
+
+        step("Проверить, что в корзине отображается товар в количестве 1",()->
+                $("[data-test-id='button__cart']").shouldHave(text("1")));
     }
 
 

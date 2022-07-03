@@ -61,7 +61,12 @@ gradle clean test
 <img title="Allure Test Page" src="images/screenshots/api_1.png">
 </p>
 
-## :robot: Отчет в Telegram
+## :robot: К каждому UI тесту прикрепляется аттч с видео
+<p align="center">
+<img title="Telegram notification message" src="images/screenshots/авт.gif">
+</p>
+
+## :robot: После прохождения тестов отправляется отчет в Telegram
 <p align="center">
 <img title="Telegram notification message" src="images/screenshots/photo_2022-07-03_16-40-29.jpg">
 </p>
