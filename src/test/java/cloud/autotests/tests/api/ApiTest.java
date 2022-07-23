@@ -130,5 +130,6 @@ public class ApiTest {
         Assertions.assertEquals(r.getData().getMakeSearch().getQueryText(),"стиральный порошок tide 3 кг");
         Assertions.assertNotNull(r.getData().getMakeSearch().getId());
         Assertions.assertNotNull(r.getData().getMakeSearch().getQueryId());
+        Assertions.assertNotNull(r.getData());
     }
 }
