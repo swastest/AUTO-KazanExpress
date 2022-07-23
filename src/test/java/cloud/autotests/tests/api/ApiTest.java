@@ -2,14 +2,23 @@ package cloud.autotests.tests.api;
 
 import cloud.autotests.config.TestDataConfig;
 import cloud.autotests.helpers.AllureRestAssuredFilter;
+import cloud.autotests.tests.api.models.request.Pagination;
+import cloud.autotests.tests.api.models.request.QueryInput;
 import cloud.autotests.tests.api.models.request.Request;
+import cloud.autotests.tests.api.models.request.Variables;
 import cloud.autotests.tests.api.models.respo.Resp;
+import com.google.common.collect.ImmutableList;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static cloud.autotests.helpers.AllureRestAssuredFilter.withCustomTemplates;
 import static cloud.autotests.tests.api.Specs.request;
@@ -99,37 +108,58 @@ public class ApiTest {
 
     @Test
     void searchTest() {
-//        Request q = new Request();
-//      q.setOperationName("getMakeSearch");
-//      q.getQuery("query getMakeSearch($queryInput: MakeSearchQueryInput!) {\n  makeSearch(query: $queryInput) {\n    id\n    queryId\n    queryText\n    category {\n      ...CategoryShortFragment\n      __typename\n    }\n    categoryTree {\n      category {\n        ...CategoryFragment\n        __typename\n      }\n      total\n      __typename\n    }\n    items {\n      catalogCard {\n        __typename\n        ...SkuGroupCardFragment\n      }\n      __typename\n    }\n    facets {\n      ...FacetFragment\n      __typename\n    }\n    total\n    mayHaveAdultContent\n    __typename\n  }\n}\n\nfragment FacetFragment on Facet {\n  filter {\n    id\n    title\n    type\n    measurementUnit\n    description\n    __typename\n  }\n  buckets {\n    filterValue {\n      id\n      description\n      image\n      name\n      __typename\n    }\n    total\n    __typename\n  }\n  range {\n    min\n    max\n    __typename\n  }\n  __typename\n}\n\nfragment CategoryFragment on Category {\n  id\n  icon\n  parent {\n    id\n    __typename\n  }\n  seo {\n    header\n    metaTag\n    __typename\n  }\n  title\n  adult\n  __typename\n}\n\nfragment CategoryShortFragment on Category {\n  id\n  parent {\n    id\n    title\n    __typename\n  }\n  title\n  __typename\n}\n\nfragment SkuGroupCardFragment on SkuGroupCard {\n  ...DefaultCardFragment\n  photos {\n    key\n    link(trans: PRODUCT_540) {\n      high\n      low\n      __typename\n    }\n    previewLink: link(trans: PRODUCT_240) {\n      high\n      low\n      __typename\n    }\n    __typename\n  }\n  badges {\n    ... on BottomTextBadge {\n      backgroundColor\n      description\n      id\n      link\n      text\n      textColor\n      __typename\n    }\n    __typename\n  }\n  characteristicValues {\n    id\n    value\n    title\n    characteristic {\n      values {\n        id\n        title\n        value\n        __typename\n      }\n      title\n      id\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment DefaultCardFragment on CatalogCard {\n  adult\n  favorite\n  feedbackQuantity\n  id\n  minFullPrice\n  minSellPrice\n  offer {\n    due\n    icon\n    text\n    textColor\n    __typename\n  }\n  badges {\n    backgroundColor\n    text\n    textColor\n    __typename\n  }\n  ordersQuantity\n  productId\n  rating\n  title\n  __typename\n}");
+        String searchText ="стиральный порошок tide 3 кг",
+                queryParam = "query getMakeSearch($queryInput: MakeSearchQueryInput!) " +
+                        "{\n  makeSearch(query: $queryInput) {\n    id\n    queryId\n    queryText\n    category " +
+                        "{\n      ...CategoryShortFragment\n      __typename\n    }\n    categoryTree " +
+                        "{\n      category {\n        ...CategoryFragment\n        __typename\n      }\n      total\n    " +
+                        "  __typename\n    }\n    items {\n      catalogCard {\n        __typename\n        ...SkuGroupCardFragment\n      }\n " +
+                        "     __typename\n    }\n    facets {\n      ...FacetFragment\n      __typename\n    }\n    total\n    " +
+                        "mayHaveAdultContent\n    __typename\n  }\n}\n\nfragment FacetFragment on Facet {\n  filter " +
+                        "{\n    id\n    title\n    type\n    measurementUnit\n    description\n    __typename\n  }\n  buckets " +
+                        "{\n    filterValue {\n      id\n      description\n      image\n      name\n      __typename\n    }\n    " +
+                        "total\n    __typename\n  }\n  range {\n    min\n    max\n    __typename\n  }\n  __typename\n}\n\nfragment " +
+                        "CategoryFragment on Category {\n  id\n  icon\n  parent {\n    id\n    __typename\n  }\n  seo {\n    header\n  " +
+                        "  metaTag\n    __typename\n  }\n  title\n  adult\n  __typename\n}\n\nfragment CategoryShortFragment on Category " +
+                        "{\n  id\n  parent {\n    id\n    title\n    __typename\n  }\n  title\n  __typename\n}\n\nfragment " +
+                        "SkuGroupCardFragment on SkuGroupCard {\n  ...DefaultCardFragment\n  photos {\n    key\n    link(trans: PRODUCT_540) " +
+                        "{\n      high\n      low\n      __typename\n    }\n    previewLink: link(trans: PRODUCT_240) " +
+                        "{\n      high\n      low\n      __typename\n    }\n    __typename\n  }\n  badges {\n    ... on BottomTextBadge " +
+                        "{\n      backgroundColor\n      description\n      id\n      link\n      text\n      textColor\n      __typename\n    " +
+                        "}\n    __typename\n  }\n  characteristicValues {\n    id\n    value\n    title\n    characteristic {\n      values " +
+                        "{\n        id\n        title\n        value\n        __typename\n      }\n      title\n      id\n      __typename\n " +
+                        "   }\n    __typename\n  }\n  __typename\n}\n\nfragment DefaultCardFragment on CatalogCard {\n  adult\n  favorite\n " +
+                        " feedbackQuantity\n  id\n  minFullPrice\n  minSellPrice\n  offer {\n    due\n    icon\n    text\n    textColor\n   " +
+                        " __typename\n  }\n  badges {\n    backgroundColor\n    text\n    textColor\n    __typename\n  }\n  ordersQuantity\n " +
+                        " productId\n  rating\n  title\n  __typename\n}";
 
-        String body = "{\n" +
-                "    \"operationName\": \"getMakeSearch\",\n" +
-                "    \"variables\": {\n" +
-                "        \"queryInput\": {\n" +
-                "            \"text\": \"стиральный порошок tide 3 кг\",\n" +
-                "            \"showAdultContent\": \"NONE\",\n" +
-                "            \"filters\": [],\n" +
-                "            \"sort\": \"BY_RELEVANCE_DESC\",\n" +
-                "            \"pagination\": {\n" +
-                "                \"offset\": 0,\n" +
-                "                \"limit\": 0\n" +
-                "            }\n" +
-                "        }\n" +
-                "    },\n" +
-                "    \"query\": \"query getMakeSearch($queryInput: MakeSearchQueryInput!) {\\n  makeSearch(query: $queryInput) {\\n    id\\n    queryId\\n    queryText\\n    category {\\n      ...CategoryShortFragment\\n      __typename\\n    }\\n    categoryTree {\\n      category {\\n        ...CategoryFragment\\n        __typename\\n      }\\n      total\\n      __typename\\n    }\\n    items {\\n      catalogCard {\\n        __typename\\n        ...SkuGroupCardFragment\\n      }\\n      __typename\\n    }\\n    facets {\\n      ...FacetFragment\\n      __typename\\n    }\\n    total\\n    mayHaveAdultContent\\n    __typename\\n  }\\n}\\n\\nfragment FacetFragment on Facet {\\n  filter {\\n    id\\n    title\\n    type\\n    measurementUnit\\n    description\\n    __typename\\n  }\\n  buckets {\\n    filterValue {\\n      id\\n      description\\n      image\\n      name\\n      __typename\\n    }\\n    total\\n    __typename\\n  }\\n  range {\\n    min\\n    max\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CategoryFragment on Category {\\n  id\\n  icon\\n  parent {\\n    id\\n    __typename\\n  }\\n  seo {\\n    header\\n    metaTag\\n    __typename\\n  }\\n  title\\n  adult\\n  __typename\\n}\\n\\nfragment CategoryShortFragment on Category {\\n  id\\n  parent {\\n    id\\n    title\\n    __typename\\n  }\\n  title\\n  __typename\\n}\\n\\nfragment SkuGroupCardFragment on SkuGroupCard {\\n  ...DefaultCardFragment\\n  photos {\\n    key\\n    link(trans: PRODUCT_540) {\\n      high\\n      low\\n      __typename\\n    }\\n    previewLink: link(trans: PRODUCT_240) {\\n      high\\n      low\\n      __typename\\n    }\\n    __typename\\n  }\\n  badges {\\n    ... on BottomTextBadge {\\n      backgroundColor\\n      description\\n      id\\n      link\\n      text\\n      textColor\\n      __typename\\n    }\\n    __typename\\n  }\\n  characteristicValues {\\n    id\\n    value\\n    title\\n    characteristic {\\n      values {\\n        id\\n        title\\n        value\\n        __typename\\n      }\\n      title\\n      id\\n      __typename\\n    }\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment DefaultCardFragment on CatalogCard {\\n  adult\\n  favorite\\n  feedbackQuantity\\n  id\\n  minFullPrice\\n  minSellPrice\\n  offer {\\n    due\\n    icon\\n    text\\n    textColor\\n    __typename\\n  }\\n  badges {\\n    backgroundColor\\n    text\\n    textColor\\n    __typename\\n  }\\n  ordersQuantity\\n  productId\\n  rating\\n  title\\n  __typename\\n}\"\n" +
-                "}";
-        Resp r =given()
-                .when()
+        Request r = new Request();
+        QueryInput q = new QueryInput();
+        Variables v = new Variables();
+        Pagination p = new Pagination();
+        r.setOperationName("getMakeSearch");
+        r.setQuery(queryParam);
+        r.setVariables(v);
+        v.setQueryInput(q);
+        q.setFilters(ImmutableList.of());
+        q.setPagination(p);
+        q.setSort("BY_RELEVANCE_DESC");
+        q.setShowAdultContent("NONE");
+        q.setText(searchText);
+        p.setLimit(0);
+        p.setOffset(0);
+
+        Resp resp = given()
                 .contentType(ContentType.JSON)
-                .body(body)
+                .body(r)
+                .when().log().all()
                 .post("https://dshop.kznexpress.ru/")
                 .then().log().all()
                 .statusCode(200)
                 .extract().as(Resp.class);
-        Assertions.assertEquals(r.getData().getMakeSearch().getQueryText(),"стиральный порошок tide 3 кг");
-        Assertions.assertNotNull(r.getData().getMakeSearch().getId());
-        Assertions.assertNotNull(r.getData().getMakeSearch().getQueryId());
-        Assertions.assertNotNull(r.getData());
+        Assertions.assertEquals(resp.getData().getMakeSearch().getQueryText(), searchText);
+        Assertions.assertNotNull(resp.getData().getMakeSearch().getId());
+        Assertions.assertNotNull(resp.getData().getMakeSearch().getQueryId());
+        Assertions.assertNotNull(resp.getData());
     }
 }
