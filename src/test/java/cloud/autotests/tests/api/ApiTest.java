@@ -1,24 +1,18 @@
 package cloud.autotests.tests.api;
 
 import cloud.autotests.config.TestDataConfig;
-import cloud.autotests.helpers.AllureRestAssuredFilter;
 import cloud.autotests.tests.api.models.request.Pagination;
 import cloud.autotests.tests.api.models.request.QueryInput;
 import cloud.autotests.tests.api.models.request.Request;
 import cloud.autotests.tests.api.models.request.Variables;
 import cloud.autotests.tests.api.models.respo.Resp;
 import com.google.common.collect.ImmutableList;
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static cloud.autotests.helpers.AllureRestAssuredFilter.withCustomTemplates;
 import static cloud.autotests.tests.api.Specs.request;
