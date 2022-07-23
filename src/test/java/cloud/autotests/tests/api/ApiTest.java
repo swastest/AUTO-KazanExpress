@@ -1,7 +1,6 @@
 package cloud.autotests.tests.api;
 
 import cloud.autotests.config.TestDataConfig;
-import io.restassured.http.ContentType;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -58,7 +57,7 @@ public class ApiTest {
     }
 
     @Test
-    @DisplayName("Позитивная проверка получения токенов(Access||Refresh)")
+    @DisplayName("Негативная проверка получения токенов(Access||Refresh)")
     void authTokensTest1() {
         given()
                 .spec(request)
