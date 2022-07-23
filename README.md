@@ -1,8 +1,8 @@
-# Проект по автоматизации тестирования интернет-магазина KazanExpress"
+# Проект по автоматизации тестирования интернет-магазина "KazanExpress"
 <p align="center">
 <img title="Allure Test Page" src="images/screenshots/KznExpress.png">
 </p>
- <a target="_blank" href="https://kazanexpress.ru/">KazanExpress - интернет-магазин с бесплатной доставкой за 1 день</a>
+ <a target="_blank" href="https://kazanexpress.ru/">KazanExpress - интернет-магазин с бесплатной доставкой за 1 день!</a>
 
 ## :floppy_disk: Содержание:
 - <a href="#computer-технологии-и-инструменты">Технологии и инструменты</a>
@@ -24,7 +24,7 @@
 <img width="6%" title="GitHub" src="images/logo/GitHub.svg">
 <img width="6%" title="Jenkins" src="images/logo/Jenkins.svg">
 <img width="6%" title="Telegram" src="images/logo/Telegram.svg">
-<img width="6%" title="Telegram" src="images/logo/Rest-Assured.png">
+<img width="6%" title="RestAssured" src="images/logo/Rest-Assured.png">
 </p>
 
 ## :notebook_with_decorative_cover: Реализованные проверки
@@ -32,7 +32,7 @@
   - Авторизация зарегестрированного пользователя
   - Соответствие заголовка страницы с желаемым результатом
   - В журнале консоли нет ошибок
-  - В шапке странице, в разделе КОрзина отображается корректное количество товара, после добавления 1 позиции незарегестрированным пользователем
+  - В шапке страницы, в разделе Корзина, отображается корректное количество товара, после добавления 1 позиции незарегистрированным пользователем
 
 - API Tests:
   - Проверка на получение токенов при авторизации зарегестрированного пользователя
