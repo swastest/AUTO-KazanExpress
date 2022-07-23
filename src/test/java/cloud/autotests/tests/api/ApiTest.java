@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import static cloud.autotests.tests.api.Specs.request;
 import static cloud.autotests.tests.api.Specs.response200;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 
@@ -48,12 +49,28 @@ public class ApiTest {
         given()
                 .spec(request)
                 .header("Authorization", "Bearer " + accessToken)
-                .contentType(ContentType.JSON)
                 .when()
                 .get("/user/contacts")
                 .then()
                 .spec(response200)
                 .body("payload.phone", equalTo(usernamePhone))
                 .body("payload.firstname", is(userName));
+    }
+
+    @Test
+    @DisplayName("Позитивная проверка получения токенов(Access||Refresh)")
+    void authTokensTest1() {
+        given()
+                .spec(request)
+                .formParam("grant_type", "password")
+                .formParam("username", usernamePhone)
+                .formParam("password", "123445")
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("authorization", headerBasicAuth)
+                .when()
+                .post("/oauth/token")
+                .then().log().all()
+                .statusCode(400)
+                .body("errors.message", is(contains("Bad request")));
     }
 }

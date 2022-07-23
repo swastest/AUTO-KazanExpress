@@ -15,6 +15,7 @@ public class Specs {
     static {
         request = with()
                 .filter(withCustomTemplates())
+                .contentType(ContentType.JSON)
                 .baseUri("https://api.kazanexpress.ru")
                 .basePath("/api")
                 .log().all();
