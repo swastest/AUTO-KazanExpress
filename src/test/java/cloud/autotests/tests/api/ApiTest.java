@@ -151,9 +151,9 @@ public class ApiTest {
                 .then().log().all()
                 .statusCode(200)
                 .extract().as(Resp.class);
+        Assertions.assertNotNull(resp.getData());
         Assertions.assertEquals(resp.getData().getMakeSearch().getQueryText(), searchText);
         Assertions.assertNotNull(resp.getData().getMakeSearch().getId());
         Assertions.assertNotNull(resp.getData().getMakeSearch().getQueryId());
-        Assertions.assertNotNull(resp.getData());
     }
 }
