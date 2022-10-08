@@ -156,4 +156,16 @@ public class ApiTest {
         Assertions.assertNotNull(resp.getData().getMakeSearch().getId());
         Assertions.assertNotNull(resp.getData().getMakeSearch().getQueryId());
     }
+
+    @Test
+    void t1(){
+        given()
+                .contentType(ContentType.JSON)
+                .when().log().all()
+                .pathParam("TOVAR",250186 )
+                .get("https://api.kazanexpress.ru/api/v2/product/{TOVAR}")
+                .then().log().all()
+                .statusCode(200)
+                .body("payload.data.id",is(250186));
+    }
 }
