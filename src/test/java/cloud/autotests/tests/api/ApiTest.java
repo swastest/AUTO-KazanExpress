@@ -8,11 +8,17 @@ import cloud.autotests.tests.api.models.request.Variables;
 import cloud.autotests.tests.api.models.respo.Resp;
 import com.google.common.collect.ImmutableList;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static cloud.autotests.helpers.AllureRestAssuredFilter.withCustomTemplates;
 import static cloud.autotests.tests.api.Specs.request;
@@ -167,5 +173,29 @@ public class ApiTest {
                 .then().log().all()
                 .statusCode(200)
                 .body("payload.data.id",is(250186));
+    }
+
+    @Test
+    void t2(){
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        String str = dateFormat.format(timestamp);
+        String[] arrStr = str.split("\\.");
+        int[] numArr = Arrays.stream(arrStr).mapToInt(Integer::parseInt).toArray();
+
+        Response r =
+        given()
+                .contentType(ContentType.JSON)
+                .when().log().all()
+                .get("https://api.kazanexpress.ru/api/main/about/faq")
+                .then().log().all()
+                .statusCode(200)
+                .body("payload.sections[0].items[0].title", is("Как заказать?")).extract().response();
+        JsonPath jsonPath = r.jsonPath();
+        List<Integer> actualTimestamp = jsonPath.get("timestamp");
+        for(int i =0; i<actualTimestamp.size()-2; i++){
+            Assertions.assertEquals(numArr[i],actualTimestamp.get(i));
+        }
     }
 }
