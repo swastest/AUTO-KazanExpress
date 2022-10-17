@@ -198,4 +198,27 @@ public class ApiTest {
             Assertions.assertEquals(numArr[i],actualTimestamp.get(i));
         }
     }
+
+    @Test
+    void t3(){
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        String str = dateFormat.format(timestamp);
+        String[] arrStr = str.split("\\.");
+        int[] numArr = Arrays.stream(arrStr).mapToInt(Integer::parseInt).toArray();
+
+        JsonPath jsonPath =
+        given()
+                .contentType(ContentType.JSON)
+                .when().log().all()
+                .get("https://api.kazanexpress.ru/api/main/about/faq")
+                .then().log().all()
+                .statusCode(200)
+                .body("payload.sections[0].items[0].title", is("Как заказать?")).extract().jsonPath();
+        List<Integer> actualTimestamp = jsonPath.get("timestamp");
+        for(int i =0; i<actualTimestamp.size()-2; i++){
+            Assertions.assertEquals(numArr[i],actualTimestamp.get(i));
+        }
+    }
 }
