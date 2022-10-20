@@ -84,7 +84,7 @@ public class ApiTest {
                 .post("/oauth/token")
                 .then().log().all()
                 .statusCode(400)
-                .body("errors.message", is(contains("Bad request")));
+                .body("errors[0].message", is("Bad request"));
     }
 
     @Test
